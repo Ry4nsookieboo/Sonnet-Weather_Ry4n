@@ -4,13 +4,22 @@ import { View, StyleSheet, Image } from 'react-native';
 import Text from '../atoms/Text';
 import iconMapping from '../../utils/weatherIcon';
 
-const WeatherInfo = ({ iconName, temperature, description }) => {
+const WeatherInfo = ({ iconName, temperature, description, date = new Date() }) => {
+  const formattedDate = date.toLocaleDateString('id-ID', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+
   return (
     <View style={styles.container}>
+      <Text style={styles.date}>{formattedDate}</Text>
       <Image
         source={iconMapping[iconName] || iconMapping['02n']}
         style={styles.icon}
       />
+      <Text style={styles.label}>current temp </Text>
       <Text style={styles.tempText}>{temperature}°C</Text>
       <Text style={styles.description}>{description}</Text>
     </View>
@@ -22,6 +31,18 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'left',
   },
+  date: {
+    fontSize: 18,
+    color: '#fff',
+    marginBottom: 8,
+  },
+  label: {
+    fontSize: 12,
+    color: '#eee',
+    marginBottom:1,
+    fontStyle: 'italic',
+  },  
+  
   icon: {
     width: 100,
     height: 100,

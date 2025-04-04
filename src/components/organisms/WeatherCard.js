@@ -20,7 +20,7 @@ const WeatherCard = ({ weatherData }) => {
 
 const styles = StyleSheet.create({
     container: {
-      marginTop: '100',//jarak atas card weather
+      marginTop: '10',//jarak atas card weather
       margin: 12,
       borderRadius: 16,
       overflow: 'hidden',
