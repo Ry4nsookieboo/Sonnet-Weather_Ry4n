@@ -17,7 +17,7 @@ import { StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 
-<StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
+
 
 const HomeScreen = () => {
   const [weatherData, setWeatherData] = useState(null);
@@ -75,6 +75,8 @@ const HomeScreen = () => {
 
   return (
     <HomeLayout>
+      <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
+
       <FlatList
         data={[{}]}
         keyExtractor={() => 'dummy'}
@@ -102,7 +104,10 @@ const HomeScreen = () => {
               )}
 
               {/* UV Index */}
-              <Text style={styles.alertText}>🌞 UV Index : {weatherData?.uvIndex} / 11</Text>
+              <Text style={styles.alertText}>
+  🌞 UV Index : {weatherData?.uvIndex ?? 'n/a'} / 11
+</Text>
+
 
               {/* Daily Forecast */}
               {forecastData && <ForecastList forecastData={forecastData} />}

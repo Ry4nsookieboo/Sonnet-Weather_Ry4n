@@ -64,30 +64,7 @@ export const fetchWeather = async (latitude, longitude) => {
 
     // UV Index & Rekomendasi Payung
     const uvIndex = uv_index_max[0];
-    const getWeatherRecommendation = (data) => {
-      if (!data || !data.current_weather) return null;
-    
-      const { windspeed, temperature, weathercode } = data.current_weather;
-    
-      // Contoh logic dasar dulu bro
-      if (weathercode >= 61 && weathercode <= 65) {
-        return '☔ Bawa payung bro, hujan nanggung tuh!';
-      }
-    
-      if (windspeed > 20) {
-        return '💨 Berangin bro, hati-hati kelilipan daun kehidupan!';
-      }
-    
-      if (temperature >= 32) {
-        return '🥵 Panas banget bro, minum yang banyak ya!';
-      }
-    
-      if (temperature <= 18) {
-        return '❄️ Dingin bro, pake jaket biar gak masuk angin!';
-      }
-    
-      return '🌤️ Cuaca santai, bawa hati yang tenang aja bro~';
-    };
+
     
 
     
