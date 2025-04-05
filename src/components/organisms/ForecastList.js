@@ -6,18 +6,28 @@ import Text from '../atoms/Text';
 import iconMapping from '../../utils/weatherIcon';
 
 const ForecastItem = ({ item }) => {
+  const formattedDate = new Date(item.date).toLocaleDateString('en-EN', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'numeric',
+    year: "2-digit",
+  });
+
   return (
     <BlurView intensity={20} tint="light" style={styles.forecastItem}>
-      <Text style={styles.date}>{item.date}</Text>
+      <Text style={styles.date}>{formattedDate}</Text>
       <Image
         source={iconMapping[item.icon] || iconMapping['01d']}
         style={styles.icon}
       />
       <Text style={styles.temp}>{item.temp}°C</Text>
       <Text style={styles.desc}>{item.description}</Text>
+      <Text style={styles.detail}>UV: {item.uvIndex ?? 'n/a'}</Text>
+      <Text style={styles.detail}>Wind: {item.windspeed ?? 'n/a'}</Text>
     </BlurView>
   );
 };
+
 
 const ForecastList = ({ forecastData }) => {
   return (
@@ -54,7 +64,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     resizeMode: 'contain',
-    marginVertical: 6,
+    marginVertical: 0,
   },
   temp: {
     color: '#fff',
@@ -66,6 +76,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: 'center',
   },
+    detail: {
+      color: '#fff',
+      fontSize: 12,
+      marginTop: 2,
+    },
 });
 
 export default ForecastList;

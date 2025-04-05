@@ -5,7 +5,7 @@ import Text from '../atoms/Text';
 import iconMapping from '../../utils/weatherIcon';
 
 const WeatherInfo = ({ iconName, temperature, windspeed, description, date = new Date() }) => {
-  const formattedDate = date.toLocaleDateString('en-EN', { //bahasa tgl nya
+  const formattedDate = date.toLocaleDateString('en-EN', { //bahasa tgl n
     weekday: 'long',
     day: 'numeric',
     month: 'long',
@@ -20,7 +20,7 @@ const WeatherInfo = ({ iconName, temperature, windspeed, description, date = new
         style={styles.icon}
       />
       <Text style={styles.label}>current temp </Text>
-      <Text style={styles.tempText}>{temperature}°C</Text>d
+      <Text style={styles.tempText}>{temperature}°C</Text>
       <Text style={styles.description}>{description}</Text>
 
     </View>
@@ -30,9 +30,9 @@ const WeatherInfo = ({ iconName, temperature, windspeed, description, date = new
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    alignItems: 'center',   // center everything horizontally
-    width: '100%',          // use full available width
-    paddingHorizontal: 20,  // add some horizontal padding if needed
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 20,
   },
   date: {
     fontSize: 18,

@@ -1,5 +1,5 @@
 export const fetchWeather = async (latitude, longitude) => {
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,weathercode,uv_index_max&hourly=temperature_2m,weathercode&timezone=auto`;
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,weathercode,uv_index_max,windspeed_10m_max&hourly=temperature_2m,weathercode&timezone=auto`;
 
   try {
     const response = await fetch(url);
@@ -12,6 +12,7 @@ export const fetchWeather = async (latitude, longitude) => {
       temperature_2m_max,
       weathercode: dailyCodes,
       uv_index_max,
+      windspeed_10m_max
     } = data.daily;
 
     const { time: hourlyTimes, temperature_2m: hourlyTemps, weathercode: hourlyCodes } = data.hourly;
@@ -50,6 +51,8 @@ export const fetchWeather = async (latitude, longitude) => {
         temp: Math.round(temperature_2m_max[i]),
         description: mapping.description,
         icon: mapping.icon,
+        uvIndex: uv_index_max[i],
+        windspeed: windspeed_10m_max?.[i] ?? null,
       };
     });
 

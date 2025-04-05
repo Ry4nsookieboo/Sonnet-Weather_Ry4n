@@ -130,14 +130,14 @@ const HomeScreen = () => {
 
               {/* Rekomendasi Cuaca */}
     {weatherData && (
-      <Text style={styles.alertText}>
+      <Text style={styles.recommendationText}>
         {getWeatherRecommendation(weatherData)}
       </Text>
               )}
 
               {/* UV Index */}
               <Text style={styles.alertText}>
-  🌞 UV Index : {weatherData?.uvIndex ?? 'n/a'} / 11
+  🌞 UV Index : {weatherData?.uvIndex ?? 'n/a'}
 </Text>
 
 
@@ -221,9 +221,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
   },  
-  alertText: {
+  recommendationText: {
     color: 'white',
-    marginTop: 10,
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  alertText: {
+    color: 'violet',
     fontSize: 16,
     textAlign: 'center',
   },
