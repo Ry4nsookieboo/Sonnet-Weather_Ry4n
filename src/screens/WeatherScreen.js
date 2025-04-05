@@ -136,6 +136,11 @@ const HomeScreen = () => {
   <Image source={require('../../assets/icons/left.png')} style={styles.leftIcon} />
 </TouchableOpacity>
 
+<TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Weather')}>
+  <Image source={require('../../assets/icons/wea.png')} style={styles.weatherIcon} />
+</TouchableOpacity>
+
+
 <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Diary')}>
   <Image source={require('../../assets/icons/diary.png')} style={styles.diaryIcon} />
 </TouchableOpacity>
@@ -202,7 +207,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
     paddingHorizontal: 40,
     paddingVertical: 1,
