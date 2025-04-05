@@ -19,11 +19,10 @@ const DiaryScreen = () => {
   const navigation = useNavigation();
 
   const [text, setText] = useState('');
-  const [isBold, setIsBold] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
-  const handleToggleBold = () => setIsBold(!isBold);
+  const handleClear = () => setText('');
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -60,8 +59,7 @@ const DiaryScreen = () => {
         <DiaryEditorBlock
           text={text}
           onChangeText={setText}
-          isBold={isBold}
-          onToggleBold={handleToggleBold}
+          onClear={handleClear}
         />
         <BottomActionBlock
           onExport={handleExport}

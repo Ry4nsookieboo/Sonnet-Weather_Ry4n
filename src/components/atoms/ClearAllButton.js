@@ -1,13 +1,10 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-export default function BoldToggleButton({ isBold, onToggle }) {
+export default function ClearAllButton({ onClear }) {
   return (
-    <TouchableOpacity
-      style={[styles.button, isBold && styles.active]}
-      onPress={onToggle}
-    >
-      <Text style={styles.text}>B</Text>
+    <TouchableOpacity style={styles.button} onPress={onClear}>
+      <Text style={styles.text}>Clear All</Text>
     </TouchableOpacity>
   );
 }
@@ -19,11 +16,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ddd',
     marginRight: 10,
   },
-  active: {
-    backgroundColor: '#9b5de5',
-  },
   text: {
-    fontWeight: 'bold',
     fontSize: 16,
   },
 });
