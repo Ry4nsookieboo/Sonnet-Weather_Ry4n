@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import BoldToggleButton from '../atoms/BoldToggleButton';
+import BoldToggleButton from '../atoms/ClearAllButton';
 
 export default function EditorToolbar({ isBold, onToggleBold }) {
   return (

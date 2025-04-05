@@ -8,7 +8,7 @@ export default function WordCounter({ text }) {
 
 const styles = StyleSheet.create({
   counter: {
-    marginTop: 8,
+    marginTop: 0,
     color: '#fff',
     fontSize: 14,
     alignSelf: 'flex-end',
