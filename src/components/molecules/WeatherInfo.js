@@ -4,7 +4,7 @@ import { View, StyleSheet, Image } from 'react-native';
 import Text from '../atoms/Text';
 import iconMapping from '../../utils/weatherIcon';
 
-const WeatherInfo = ({ iconName, temperature, windspeed, description, date = new Date() }) => {
+const WeatherInfo = ({ iconName, temperature, location, description, date = new Date() }) => {
   const formattedDate = date.toLocaleDateString('en-EN', { //bahasa tgl n
     weekday: 'long',
     day: 'numeric',
@@ -19,7 +19,8 @@ const WeatherInfo = ({ iconName, temperature, windspeed, description, date = new
         source={iconMapping[iconName] || iconMapping['02n']}
         style={styles.icon}
       />
-      <Text style={styles.label}>current temp </Text>
+      <Text style={styles.label}>current temp</Text>
+
       <Text style={styles.tempText}>{temperature}°C</Text>
       <Text style={styles.description}>{description}</Text>
 
