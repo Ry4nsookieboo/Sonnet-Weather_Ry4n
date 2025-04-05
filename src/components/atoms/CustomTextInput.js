@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     fontSize: 16,
     backgroundColor: "hsla(0, 0.00%, 100.00%, 0.05)",
-    height:300,
+    height:250,
     color:'#d9dddc',
   },
 });

@@ -43,18 +43,19 @@ export const fetchWeather = async (latitude, longitude) => {
       current.icon = current.icon.replace('d', 'n');
     }
 
-    const forecast = time.map((date, i) => {
-      const code = dailyCodes[i];
+    const forecast = time.slice(1,8).map((date, i) => {
+      const code = dailyCodes[i + 1];
       const mapping = weatherMapping[code] || { description: 'Unknown', icon: '01d' };
       return {
         date,
-        temp: Math.round(temperature_2m_max[i]),
+        temp: Math.round(temperature_2m_max[i + 1]),
         description: mapping.description,
         icon: mapping.icon,
-        uvIndex: uv_index_max[i],
-        windspeed: windspeed_10m_max?.[i] ?? null,
+        uvIndex: uv_index_max[i + 1],
+        windspeed: windspeed_10m_max?.[i + 1] ?? null,
       };
     });
+    
 
     const now = new Date();
 // Filter data hourly yang waktunya setelah sekarang dan ambil 24 jam pertama

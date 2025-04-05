@@ -6,7 +6,7 @@ import Text from '../atoms/Text';
 import iconMapping from '../../utils/weatherIcon';
 
 const ForecastItem = ({ item }) => {
-  const formattedDate = new Date(item.date).toLocaleDateString('en-EN', {
+  const formattedDate = new Date(item.date).toLocaleDateString('en-GB', {
     weekday: 'short',
     day: 'numeric',
     month: 'numeric',
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   date: {
     color: '#fff',
     marginBottom: 6,
-    fontSize: 14,
+    fontSize: 12,
   },
   icon: {
     width: 40,
