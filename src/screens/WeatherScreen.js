@@ -272,7 +272,11 @@ const styles = StyleSheet.create({
     height: 20,
     resizeMode: 'contain',
   },
-  
+  weatherIcon: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+  },
   diaryIcon: {
     width: 30,
     height: 30,

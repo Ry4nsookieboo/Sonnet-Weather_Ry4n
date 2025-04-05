@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingHorizontal: 40,
-    paddingVertical: 10,
+    paddingVertical: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
     position: 'absolute',
     bottom: 0,
