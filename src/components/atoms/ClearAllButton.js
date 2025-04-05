@@ -1,9 +1,20 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 
 export default function ClearAllButton({ onClear }) {
+  const handlePress = () => {
+      Alert.alert(
+        'Reset Diary',
+        'Are you sure you want to start a new diary entry?',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          { text: 'Yes', onPress: onClear },
+        ]
+      );
+    };
+    
   return (
-    <TouchableOpacity style={styles.button} onPress={onClear}>
+    <TouchableOpacity style={styles.button} onPress={handlePress}>
       <Text style={styles.text}>Clear All</Text>
     </TouchableOpacity>
   );

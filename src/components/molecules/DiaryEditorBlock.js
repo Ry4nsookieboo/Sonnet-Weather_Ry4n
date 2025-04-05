@@ -4,6 +4,7 @@ import CustomTextInput from '../atoms/CustomTextInput';
 import WordCounter from '../atoms/WordCounter';
 import ClearAllButton from '../atoms/ClearAllButton';
 
+
 export default function DiaryEditorBlock({ text, onChangeText, onClear }) {
   return (
     <View style={styles.container}>
