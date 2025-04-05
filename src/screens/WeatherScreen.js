@@ -73,11 +73,6 @@ const HomeScreen = () => {
       </Text>
     );
   };
-  
-  
-  
-  
-
   const latitude = -8.65;
   const longitude = 115.2167;
 
@@ -116,7 +111,7 @@ const HomeScreen = () => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefresh}
-            colors={['#fff']}
+            colors={['#000000']}
             tintColor="#fff"
           />
         }
