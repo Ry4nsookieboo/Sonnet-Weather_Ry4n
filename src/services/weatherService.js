@@ -6,7 +6,7 @@ export const fetchWeather = async (latitude, longitude) => {
     if (!response.ok) throw new Error('Failed to fetch weather data');
     const data = await response.json();
 
-    const { temperature, weathercode, is_day } = data.current_weather;
+    const { temperature, weathercode, is_day, windspeed } = data.current_weather;
     const {
       time,
       temperature_2m_max,
@@ -53,22 +53,27 @@ export const fetchWeather = async (latitude, longitude) => {
       };
     });
 
-    // Hourly (hanya 24 jam pertama)
-    const hourly = hourlyTimes.slice(0, 24).map((timeStr, index) => {
-      const hour = new Date(timeStr).getHours().toString().padStart(2, '0') + ':00';
-      const temp = Math.round(hourlyTemps[index]);
-      const code = hourlyCodes[index];
-      const description = weatherMapping[code]?.description || 'Unknown';
-      return { hour, temp, description };
-    });
+    const now = new Date();
+// Filter data hourly yang waktunya setelah sekarang dan ambil 24 jam pertama
+const upcomingHourly = [];
+for (let i = 0; i < hourlyTimes.length; i++) {
+  const timeObj = new Date(hourlyTimes[i]);
+  if (timeObj > now) {
+    upcomingHourly.push({ time: hourlyTimes[i], index: i });
+    if (upcomingHourly.length >= 24) break;
+  }
+}
 
-    // UV Index & Rekomendasi Payung
+const hourly = upcomingHourly.map(item => {
+  const hour = new Date(item.time).getHours().toString().padStart(2, '0') + ':00';
+  const temp = Math.round(hourlyTemps[item.index]);
+  const code = hourlyCodes[item.index];
+  const description = weatherMapping[code]?.description || 'Unknown';
+  return { hour, temp, description };
+});
+
+    // UV Index
     const uvIndex = uv_index_max[0];
-
-    
-
-    
-
 
     return {
       temp: Math.round(temperature),
@@ -77,6 +82,8 @@ export const fetchWeather = async (latitude, longitude) => {
       forecast,
       hourly,
       uvIndex,
+      isDay: is_day,
+      windspeed,
     };
   } catch (error) {
     console.error(error);

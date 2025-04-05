@@ -24,7 +24,7 @@ const ForecastList = ({ forecastData }) => {
     <FlatList
       data={forecastData}
       horizontal
-      showsHorizontalScrollIndicator={false}
+      showsHorizontalScrollIndicator={true}
       keyExtractor={(item) => item.date}
       renderItem={({ item }) => <ForecastItem item={item} />}
       contentContainerStyle={styles.listContainer}

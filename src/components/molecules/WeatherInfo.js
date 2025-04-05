@@ -4,8 +4,8 @@ import { View, StyleSheet, Image } from 'react-native';
 import Text from '../atoms/Text';
 import iconMapping from '../../utils/weatherIcon';
 
-const WeatherInfo = ({ iconName, temperature, description, date = new Date() }) => {
-  const formattedDate = date.toLocaleDateString('id-ID', {
+const WeatherInfo = ({ iconName, temperature, windspeed, description, date = new Date() }) => {
+  const formattedDate = date.toLocaleDateString('en-EN', { //bahasa tgl nya
     weekday: 'long',
     day: 'numeric',
     month: 'long',
@@ -20,8 +20,9 @@ const WeatherInfo = ({ iconName, temperature, description, date = new Date() }) 
         style={styles.icon}
       />
       <Text style={styles.label}>current temp </Text>
-      <Text style={styles.tempText}>{temperature}°C</Text>
+      <Text style={styles.tempText}>{temperature}°C</Text>d
       <Text style={styles.description}>{description}</Text>
+
     </View>
   );
 };
@@ -29,12 +30,13 @@ const WeatherInfo = ({ iconName, temperature, description, date = new Date() }) 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    alignItems: 'left',
+    alignItems: 'center',   // center everything horizontally
+    width: '100%',          // use full available width
+    paddingHorizontal: 20,  // add some horizontal padding if needed
   },
   date: {
     fontSize: 18,
     color: '#fff',
-    marginBottom: 8,
   },
   label: {
     fontSize: 12,
@@ -42,21 +44,25 @@ const styles = StyleSheet.create({
     marginBottom:1,
     fontStyle: 'italic',
   },  
-  
+  windText: {
+    fontSize: 18,
+    color: '#fff',
+    marginTop: 4,
+  },  
   icon: {
     width: 100,
-    height: 100,
-    alignItems: 'left',
+    height: 90,
+    alignItems:'left',
     resizeMode: 'contain',
-    marginBottom: 0,
+    marginBottom: 20,
   },
   tempText: {
-    fontSize: 48,
+    fontSize: 40,
     fontWeight: 'bold',
     color: '#fff',
   },
   description: {
-    fontSize: 20,
+    fontSize: 16,
     color: '#fff',
     textTransform: 'capitalize',
     marginTop: 4,

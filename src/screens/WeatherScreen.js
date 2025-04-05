@@ -26,22 +26,54 @@ const HomeScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
 
   const getWeatherRecommendation = (weatherData) => {
-    if (!weatherData) return "Weather's playing hide and seek... Try again later 😅";
-  
-    const { temperature, windspeed, description } = weatherData;
-  
-    if (description.toLowerCase().includes('rain')) {
-      return "☔ It's raining cats, dogs, and maybe lizards. Grab that umbrella, champ!";
-    } else if (windspeed > 20) {
-      return "💨 Wind's going wild out there. Hold onto your hat... or your wig.";
-    } else if (temperature > 33) {
-      return "🔥 Hotter than your ex's new fling. Stay cool, hydrate, and maybe chill indoors.";
-    } else if (temperature < 20) {
-      return "🥶 It's giving fridge energy. Bundle up, penguin!";
-    } else {
-      return "🌤️ Weather's being nice today. Go touch some grass!";
+    if (!weatherData) {
+      return (
+        <Text style={styles.recommendation}>
+          Weather's playing hide and seek... Try again later 😅{'\n'}
+          <Text style={styles.highlight}>Wind Speed: n/a</Text>
+        </Text>
+      );
     }
+  
+    const { temperature, windspeed, description, isDay } = weatherData;
+    const desc = description.toLowerCase();
+    let baseMessage = '';
+  
+    if (desc.includes('rain')) {
+      baseMessage = isDay
+        ? "☔ It's raining cats, dogs, and maybe lizards. Grab that umbrella, champ!"
+        : "🌧️ It's raining tonight. Cozy up inside and keep that umbrella handy!";
+
+    } else if (windspeed > 20) {
+      baseMessage = isDay
+        ? "💨 Wind's going wild out there. Hold onto your hat... or your wig."
+        : "💨 It's a blustery night—watch out for flying leaves and papers!";
+
+    } else if (temperature > 33) {
+      baseMessage = isDay
+        ? "🔥 It's hotter than your ex's new fling. Stay cool, hydrate, and maybe chill indoors."
+        : "🔥 Even at night, it's scorching—make sure you keep cool!";
+
+    } else if (temperature < 26) {
+      baseMessage = isDay
+        ? "🥶 It's giving fridge energy. Bundle up, penguin!"
+        : "😴 It's a chilly night. Snuggle up under a warm blanket!";
+        
+    } else {
+      baseMessage = isDay
+        ? "🌤️ It's a beautiful day. Go touch some grass!"
+        : "🌙 The night is calm and clear. Perfect for stargazing!";
+    }
+  
+    return (
+      <Text style={styles.recommendation}>
+        {baseMessage}
+        {'\n'}
+        <Text style={styles.highlight}>Wind Speed: {windspeed} km/h</Text>
+      </Text>
+    );
   };
+  
   
   
   
@@ -115,7 +147,7 @@ const HomeScreen = () => {
               {/* Hourly Forecast */}
               {weatherData?.hourly && (
                 <View style={styles.hourlyContainer}>
-                  <Text style={styles.hourlyTitle}>Cuaca per jam hari ini :</Text>
+                  <Text style={styles.hourlyTitle}>Hourly weather today :</Text>
                   <FlatList
                     data={weatherData.hourly}
                     horizontal
@@ -165,6 +197,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 20,
   },
+    highlight: {
+      fontWeight: 'bold',
+      color: 'magenta',
+    },
   buttonContainer: {
     marginTop: 30,
     alignItems: 'center',
