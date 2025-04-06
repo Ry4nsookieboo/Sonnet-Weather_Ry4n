@@ -38,31 +38,44 @@ const HomeScreen = () => {
     }
     console.log(weatherData);
 
-    const { temperature, windspeed, description, isDay } = weatherData;
+    const { temp, windspeed, description, isDay } = weatherData;
     const desc = description.toLowerCase();
     let baseMessage = '';
-  
+    
     if (desc.includes('rain')) {
       baseMessage = isDay
         ? "☔ It's raining cats, dogs, and maybe lizards. Grab that umbrella, champ!"
         : "🌧️ It's raining tonight. Cozy up inside and keep that umbrella handy!";
-    } else if (windspeed > 20) {
+    } else if (windspeed > 10.5) {
       baseMessage = isDay
         ? "💨 Wind's going wild out there. Hold onto your hat... or your wig."
         : "💨 It's a blustery night—watch out for flying leaves and papers!";
-    } else if (temperature > 33) {
-      baseMessage = isDay
-        ? "🔥 It's hotter than your ex's new fling. Stay cool, hydrate, and maybe chill indoors."
-        : "🔥 Even at night, it's scorching—make sure you keep cool!";
-    } else if (temperature < 26) {
-      baseMessage = isDay
-        ? "🥶 It's giving fridge energy. Bundle up, penguin!"
-        : "😴 It's a chilly night. Snuggle up under a warm blanket!";
+    } else if (typeof temp === 'number') {
+      if (temp >= 30) {
+        baseMessage = isDay
+          ? "🔥 It's hotter than your ex's new fling. Stay cool, hydrate, and maybe chill indoors."
+          : "🔥 Even at night, it's scorching—make sure you keep cool!";
+      } else if (temp >= 27 && temp <= 29) {
+        baseMessage = isDay
+          ? "🌤️ It's a beautiful day. Go touch some grass!"
+          : "🌙 The night is calm and clear. Perfect for stargazing!";
+      } else if (temp >= 21 && temp <= 26) {
+        baseMessage = isDay
+          ? "🌤️ It's a pleasant day, enjoy it!"
+          : "🌙 A pleasant night, take it easy!";
+      } else if (temp <= 20) {
+        baseMessage = isDay
+          ? "🥶 It's giving fridge energy. Bundle up, penguin!"
+          : "😴 It's a chilly night. Snuggle up under a warm blanket!";
+      } else {
+        baseMessage = isDay
+          ? "🌤️ It's a nice day, enjoy it!"
+          : "🌙 Enjoy your night!";
+      }
     } else {
-      baseMessage = isDay
-        ? "🌤️ It's a beautiful day. Go touch some grass!"
-        : "🌙 The night is calm and clear. Perfect for stargazing!";
+      baseMessage = "Weather's playing hide and seek... Try again later 😅";
     }
+    
   
     return (
       <Text style={styles.recommendation}>
