@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     height: 90,
     alignItems:'left',
     resizeMode: 'contain',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   tempText: {
     fontSize: 40,

@@ -139,6 +139,7 @@ const HomeScreen = () => {
       {/* Tampilkan info jika permission lokasi ditolak */}
       {locationDenied && (
   <View style={styles.alertContainer}>
+
     <View style={styles.alertRow}>
       <Image
         source={iconMapping['01d']}
@@ -157,6 +158,7 @@ const HomeScreen = () => {
         style={styles.iconSide}
         resizeMode="contain"
       />
+
     </View>
   </View>
 )}
