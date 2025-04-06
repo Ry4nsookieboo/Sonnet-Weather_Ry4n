@@ -22,7 +22,7 @@ const HomeScreen = () => {
   const [forecastData, setForecastData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  // Inisialisasi location dengan null, bukan dummy data
+  // Reminder inisialisasi location dengan null, bukan dummy data 
   const [location, setLocation] = useState(null);
   const [locationDenied, setLocationDenied] = useState(false);
 
@@ -35,7 +35,8 @@ const HomeScreen = () => {
         </Text>
       );
     }
-  
+    console.log(weatherData);
+
     const { temperature, windspeed, description, isDay } = weatherData;
     const desc = description.toLowerCase();
     let baseMessage = '';
@@ -66,7 +67,7 @@ const HomeScreen = () => {
       <Text style={styles.recommendation}>
         {baseMessage}
         {'\n'}
-        <Text style={styles.highlight}>Wind Speed: {windspeed} km/h</Text>
+        <Text style={styles.highlight}>Current Wind Speed : {windspeed} km/h</Text>
       </Text>
     );
   };

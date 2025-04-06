@@ -22,8 +22,8 @@ const ForecastItem = ({ item }) => {
       />
       <Text style={styles.temp}>{item.temp}°C</Text>
       <Text style={styles.desc}>{item.description}</Text>
-      <Text style={styles.detail}>UV: {item.uvIndex ?? 'n/a'}</Text>
-      <Text style={styles.detail}>Wind: {item.windspeed ?? 'n/a'}</Text>
+      <Text style={styles.detail}>UV : {item.uvIndex ?? 'n/a'}</Text>
+      <Text style={styles.detail}>Wind : {item.windspeed ?? 'n/a'}</Text>
     </BlurView>
   );
 };

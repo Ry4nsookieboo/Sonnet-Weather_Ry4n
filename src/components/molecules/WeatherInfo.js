@@ -19,7 +19,7 @@ const WeatherInfo = ({ iconName, temperature, location, description, date = new 
         source={iconMapping[iconName] || iconMapping['02n']}
         style={styles.icon}
       />
-      <Text style={styles.label}>current temp</Text>
+      <Text style={styles.label}>current temp at your location</Text>
 
       <Text style={styles.tempText}>{temperature}°C</Text>
       <Text style={styles.description}>{description}</Text>

@@ -6,7 +6,7 @@ export const fetchWeather = async (latitude, longitude) => {
     if (!response.ok) throw new Error('Failed to fetch weather data');
     const data = await response.json();
 
-    const { temperature, weathercode, is_day, windspeed } = data.current_weather;
+    const { temperature, weathercode, is_day, windspeed: windspeedCurrent } = data.current_weather;
     const {
       time,
       temperature_2m_max,
@@ -43,7 +43,7 @@ export const fetchWeather = async (latitude, longitude) => {
       current.icon = current.icon.replace('d', 'n');
     }
 
-    const forecast = time.slice(1).map((date, i) => {
+    const forecast = time.map((date, i) => {
       const code = dailyCodes[i];
       const mapping = weatherMapping[code] || { description: 'Unknown', icon: '01d' };
       return {
@@ -87,7 +87,7 @@ const hourly = upcomingHourly.map(item => {
       hourly,
       uvIndex,
       isDay: is_day,
-      windspeed,
+      windspeed: windspeedCurrent,
     };
   } catch (error) {
     console.error(error);
