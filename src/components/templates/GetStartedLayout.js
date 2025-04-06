@@ -1,12 +1,14 @@
 // src/components/templates/GetStartedLayout.js
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { StyleSheet } from 'react-native';
 
 export default function GetStartedLayout({ children }) {
   return (
     <LinearGradient
-      colors={['#3B1877', '#3B1877', '#802BB1']} // contoh gradasi
+      colors={['#1F315E', '#6E348E']} // gradient dark ke bright, bisa disesuaikan
+      start={{ x: 0.5, y: 0 }}
+      end={{ x: 0.5, y: 1 }}
       style={styles.container}
     >
       {children}
@@ -17,8 +19,7 @@ export default function GetStartedLayout({ children }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 24,
-    paddingVertical: 50,
+    padding: 16,
     alignItems: 'center',
     justifyContent: 'center',
   },

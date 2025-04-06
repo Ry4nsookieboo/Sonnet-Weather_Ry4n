@@ -4,14 +4,14 @@ import { Text, StyleSheet } from 'react-native';
 
 export default function CustomText({ children, style, ...props }) {
   return (
-    <Text style={[styles.default, style]} {...props}>
+    <Text style={[styles.text, style]} {...props}>
       {children}
     </Text>
   );
 }
 
 const styles = StyleSheet.create({
-  default: {
+  text: {
     color: '#fff',
     fontSize: 16,
   },

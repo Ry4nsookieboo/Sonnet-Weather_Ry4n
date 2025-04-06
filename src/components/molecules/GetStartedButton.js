@@ -1,13 +1,26 @@
 // src/components/molecules/GetStartedButton.js
 import React from 'react';
-import CustomButton from '../atoms/CustomButton';
+import { TouchableOpacity, Image, StyleSheet } from 'react-native';
 
 export default function GetStartedButton({ onPress }) {
   return (
-    <CustomButton 
-      label="Get Start" 
-      onPress={onPress} 
-      style={{ backgroundColor: '#FFBD2E' }} // warna kuning, dsb
-    />
+    <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
+      <Image
+        source={require('../../../assets/icons/getstarted.png')}
+        style={styles.image}
+      />
+    </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  image: {
+    width: 250,    // sesuaikan dengan desain PNG lo
+    height: 250,   // sesuaikan dengan desain PNG lo
+    resizeMode: 'contain',
+  },
+});

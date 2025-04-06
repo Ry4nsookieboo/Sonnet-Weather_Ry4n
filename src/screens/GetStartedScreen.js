@@ -22,7 +22,7 @@ export default function GetStartedScreen() {
 
       {/* Footer khusus Get Started */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.footerButton} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('GetStarted')}>
           <Image source={require('../../assets/icons/left.png')} style={styles.leftIcon} />
         </TouchableOpacity>
 
