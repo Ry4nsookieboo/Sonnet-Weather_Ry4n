@@ -49,7 +49,11 @@ const DiaryScreen = () => {
   const randomQuote = quotes[randomIndex];
 
   const handleExport = () => {
-    console.log('Export diary:', text);
+    if (text.trim().length > 0) {
+      console.log('Export diary :', text);
+    } else {
+      console.log('Export diary : Note is empty.');
+    }
     setModalVisible(true);
   };
 
@@ -117,7 +121,6 @@ const DiaryScreen = () => {
           </TouchableOpacity>
         </View>
       )}
-
     </HomeLayout>
   );
 };
