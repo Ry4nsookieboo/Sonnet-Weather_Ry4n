@@ -13,7 +13,7 @@ export default function DiaryEditorBlock({ text, onChangeText, onClear }) {
       <CustomTextInput 
         value={text} 
         onChangeText={onChangeText} 
-        placeholder="Write your diary entry here..." 
+        placeholder="Tell your story..." 
         placeholderTextColor='#b9bbb6'
       />
 
