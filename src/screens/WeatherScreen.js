@@ -13,20 +13,19 @@ import HomeLayout from '../components/templates/HomeLayout';
 import WeatherCard from '../components/organisms/WeatherCard';
 import ForecastList from '../components/organisms/ForecastList';
 import { fetchWeather } from '../services/weatherService';
-// import * as Location from 'expo-location';
+import * as Location from 'expo-location';
 import { StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import GetStartedScreen from './GetStartedScreen';
-
-
-
 
 const HomeScreen = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  
+  // Inisialisasi location dengan null, bukan dummy data
+  const [location, setLocation] = useState(null);
+  const [locationDenied, setLocationDenied] = useState(false);
+
   const getWeatherRecommendation = (weatherData) => {
     if (!weatherData) {
       return (
@@ -45,22 +44,18 @@ const HomeScreen = () => {
       baseMessage = isDay
         ? "☔ It's raining cats, dogs, and maybe lizards. Grab that umbrella, champ!"
         : "🌧️ It's raining tonight. Cozy up inside and keep that umbrella handy!";
-
     } else if (windspeed > 20) {
       baseMessage = isDay
         ? "💨 Wind's going wild out there. Hold onto your hat... or your wig."
         : "💨 It's a blustery night—watch out for flying leaves and papers!";
-
     } else if (temperature > 33) {
       baseMessage = isDay
         ? "🔥 It's hotter than your ex's new fling. Stay cool, hydrate, and maybe chill indoors."
         : "🔥 Even at night, it's scorching—make sure you keep cool!";
-
     } else if (temperature < 26) {
       baseMessage = isDay
         ? "🥶 It's giving fridge energy. Bundle up, penguin!"
         : "😴 It's a chilly night. Snuggle up under a warm blanket!";
-        
     } else {
       baseMessage = isDay
         ? "🌤️ It's a beautiful day. Go touch some grass!"
@@ -75,14 +70,33 @@ const HomeScreen = () => {
       </Text>
     );
   };
-  
-  const latitude = -8.65;
-  const longitude = 115.2167;
+
+  // Minta izin dan dapatkan lokasi device user
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access location was denied');
+        setLocationDenied(true);
+        // Optional: Set fallback location misal koordinat default
+        // setLocation({ latitude: -8.65, longitude: 115.2167 });
+        return;
+      }
+      let loc = await Location.getCurrentPositionAsync({});
+      setLocation({
+        latitude: loc.coords.latitude,
+        longitude: loc.coords.longitude,
+      });
+    })();
+  }, []);
 
   const loadWeatherData = useCallback(async () => {
+    // Pastikan location sudah ada sebelum fetch data
+    if (!location) return;
+
     try {
       if (!refreshing) setLoading(true);
-      const data = await fetchWeather(latitude, longitude);
+      const data = await fetchWeather(location.latitude, location.longitude);
       setWeatherData(data);
       setForecastData(data.forecast);
     } catch (error) {
@@ -91,7 +105,7 @@ const HomeScreen = () => {
       setLoading(false);
       setRefreshing(false);
     }
-  }, [refreshing]);
+  }, [refreshing, location]);
 
   useEffect(() => {
     loadWeatherData();
@@ -107,6 +121,13 @@ const HomeScreen = () => {
     <HomeLayout>
       <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
 
+      {/* Tampilkan info jika permission lokasi ditolak */}
+      {locationDenied && (
+        <Text style={styles.alertText}>
+          🚫 Akses lokasi ditolak. Pastikan izinkan akses lokasi untuk hasil yang tepat.
+        </Text>
+      )}
+
       <FlatList
         data={[{}]}
         keyExtractor={() => 'dummy'}
@@ -118,7 +139,6 @@ const HomeScreen = () => {
             tintColor="#fff"
           />
         }
-        
         renderItem={() =>
           loading ? (
             <ActivityIndicator size="large" color="#fff" style={{ marginTop: 50 }} />
@@ -127,17 +147,16 @@ const HomeScreen = () => {
               <WeatherCard weatherData={weatherData} />
 
               {/* Rekomendasi Cuaca */}
-    {weatherData && (
-      <Text style={styles.recommendationText}>
-        {getWeatherRecommendation(weatherData)}
-      </Text>
+              {weatherData && (
+                <Text style={styles.recommendationText}>
+                  {getWeatherRecommendation(weatherData)}
+                </Text>
               )}
 
               {/* UV Index */}
               <Text style={styles.alertText}>
-  🌞 UV Index : {weatherData?.uvIndex ?? 'n/a'}
-</Text>
-
+                🌞 UV Index : {weatherData?.uvIndex ?? 'n/a'}
+              </Text>
 
               {/* Daily Forecast */}
               {forecastData && <ForecastList forecastData={forecastData} />}
@@ -145,7 +164,7 @@ const HomeScreen = () => {
               {/* Hourly Forecast */}
               {weatherData?.hourly && (
                 <View style={styles.hourlyContainer}>
-                  <Text style={styles.hourlyTitle}>Hourly weather today :</Text>
+                  <Text style={styles.hourlyTitle}>Hourly weather forecast :</Text>
                   <FlatList
                     data={weatherData.hourly}
                     horizontal
@@ -161,30 +180,23 @@ const HomeScreen = () => {
                   />
                 </View>
               )}
-
             </View>
           )
         }
       />
-     <View style={styles.footer}>
-     <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('GetStarted')}>
-  <Image source={require('../../assets/icons/left.png')} style={styles.leftIcon} />
-</TouchableOpacity>
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.footerButton} onPress={() => navigation.goBack()}>
+          <Image source={require('../../assets/icons/left.png')} style={styles.leftIcon} />
+        </TouchableOpacity>
 
-<TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Weather')}>
-  <Image source={require('../../assets/icons/wea.png')} style={styles.weatherIcon} />
-</TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Weather')}>
+          <Image source={require('../../assets/icons/wea.png')} style={styles.weatherIcon} />
+        </TouchableOpacity>
 
-
-<TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Diary')}>
-  <Image source={require('../../assets/icons/diary.png')} style={styles.diaryIcon} />
-</TouchableOpacity>
-
-
-
-</View>
-
-
+        <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Diary')}>
+          <Image source={require('../../assets/icons/diary.png')} style={styles.diaryIcon} />
+        </TouchableOpacity>
+      </View>
     </HomeLayout>
   );
 };
@@ -195,10 +207,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 20,
   },
-    highlight: {
-      fontWeight: 'bold',
-      color: 'magenta',
-    },
+  highlight: {
+    fontWeight: 'bold',
+    color: 'magenta',
+  },
   buttonContainer: {
     marginTop: 30,
     alignItems: 'center',
@@ -218,7 +230,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 16,
-  },  
+  },
   recommendationText: {
     color: 'white',
     fontSize: 16,
@@ -254,17 +266,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 40,
     paddingVertical: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)', // semi-transparan buat efek cool
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
   },
-  
   footerButton: {
     padding: 10,
   },
-  
   leftIcon: {
     width: 20,
     height: 20,
@@ -280,7 +290,6 @@ const styles = StyleSheet.create({
     height: 30,
     resizeMode: 'contain',
   },
-  
 });
 
 export default HomeScreen;

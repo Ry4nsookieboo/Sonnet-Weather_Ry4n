@@ -310,10 +310,9 @@ const HomeScreen = () => {
   const [forecastData, setForecastData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [location, setLocation] = useState({
-    latitude: -8.65,
-    longitude: 115.2167,
-  });
+  // Inisialisasi location dengan null, bukan dummy data
+  const [location, setLocation] = useState(null);
+  const [locationDenied, setLocationDenied] = useState(false);
 
   const getWeatherRecommendation = (weatherData) => {
     if (!weatherData) {
@@ -366,6 +365,9 @@ const HomeScreen = () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         console.log('Permission to access location was denied');
+        setLocationDenied(true);
+        // Optional: Set fallback location misal koordinat default
+        // setLocation({ latitude: -8.65, longitude: 115.2167 });
         return;
       }
       let loc = await Location.getCurrentPositionAsync({});
@@ -377,6 +379,9 @@ const HomeScreen = () => {
   }, []);
 
   const loadWeatherData = useCallback(async () => {
+    // Pastikan location sudah ada sebelum fetch data
+    if (!location) return;
+
     try {
       if (!refreshing) setLoading(true);
       const data = await fetchWeather(location.latitude, location.longitude);
@@ -403,6 +408,13 @@ const HomeScreen = () => {
   return (
     <HomeLayout>
       <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
+
+      {/* Tampilkan info jika permission lokasi ditolak */}
+      {locationDenied && (
+        <Text style={styles.alertText}>
+          🚫 Akses lokasi ditolak. Pastikan izinkan akses lokasi untuk hasil yang tepat.
+        </Text>
+      )}
 
       <FlatList
         data={[{}]}
