@@ -83,6 +83,7 @@ const DiaryScreen = () => {
           <View style={styles.modalBox}>
             <Text style={styles.modalTitle}>Success!</Text>
             <Text style={styles.modalText}>Your diary has been exported!</Text>
+            
             <Pressable
               style={({ pressed }) => [
                 styles.okButton,

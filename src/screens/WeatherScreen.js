@@ -13,6 +13,7 @@ import HomeLayout from '../components/templates/HomeLayout';
 import WeatherCard from '../components/organisms/WeatherCard';
 import ForecastList from '../components/organisms/ForecastList';
 import { fetchWeather } from '../services/weatherService';
+import iconMapping from '../utils/weatherIcon';
 import * as Location from 'expo-location';
 import { StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -124,10 +125,31 @@ const HomeScreen = () => {
 
       {/* Tampilkan info jika permission lokasi ditolak */}
       {locationDenied && (
-        <Text style={styles.alertText}>
-          🚫 Akses lokasi ditolak. Pastikan izinkan akses lokasi untuk hasil yang tepat.
+  <View style={styles.alertContainer}>
+    <View style={styles.alertRow}>
+      <Image
+        source={iconMapping['01d']}
+        style={styles.iconSide}
+        resizeMode="contain"
+      />
+
+      <View style={styles.textBlock}>
+        <Text style={styles.alertTolak}>
+          Oops, location's blocked.{'\n'}Mind giving permission so we can show the weather?
         </Text>
-      )}
+      </View>
+
+      <Image
+        source={iconMapping['01n']}
+        style={styles.iconSide}
+        resizeMode="contain"
+      />
+    </View>
+  </View>
+)}
+
+
+
 
       <FlatList
         data={[{}]}
@@ -236,6 +258,40 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     textAlign: 'center',
+  },
+  alertContainer: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  
+  alertRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+  },
+  
+  iconSide: {
+    width: 40,
+    height: 40,
+    marginHorizontal: 12,
+  },
+  
+  textBlock: {
+    maxWidth: '65%',
+  },
+  
+  alertTolak: {
+    color: 'magenta',
+    fontSize: 12,
+    textAlign: 'center',
+    lineHeight: 22,
   },
   alertText: {
     color: 'violet',
