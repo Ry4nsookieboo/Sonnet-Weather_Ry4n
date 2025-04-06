@@ -30,7 +30,7 @@ export default function GetStartedHero() {
       </TouchableOpacity>
 
       <Image
-        source={iconMapping['17a']} // House tetap
+        source={iconMapping['17a']}
         style={styles.house}
         resizeMode="contain"
       />
