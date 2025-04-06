@@ -46,24 +46,24 @@ const HomeScreen = () => {
       baseMessage = isDay
         ? "☔ It's raining cats, dogs, and maybe lizards. Grab that umbrella, champ!"
         : "🌧️ It's raining tonight. Cozy up inside and keep that umbrella handy!";
-    } else if (windspeed > 10.5) {
+    } else if (windspeed > 15) {
       baseMessage = isDay
         ? "💨 Wind's going wild out there. Hold onto your hat... or your wig."
         : "💨 It's a blustery night—watch out for flying leaves and papers!";
     } else if (typeof temp === 'number') {
-      if (temp >= 30) {
+      if (temp >= 33) {
         baseMessage = isDay
           ? "🔥 It's hotter than your ex's new fling. Stay cool, hydrate, and maybe chill indoors."
           : "🔥 Even at night, it's scorching—make sure you keep cool!";
-      } else if (temp >= 27 && temp <= 29) {
+      } else if (temp >= 28 && temp <= 32) {
         baseMessage = isDay
           ? "🌤️ It's a beautiful day. Go touch some grass!"
           : "🌙 The night is calm and clear. Perfect for stargazing!";
-      } else if (temp >= 21 && temp <= 26) {
+      } else if (temp >= 26 && temp <= 27) {
         baseMessage = isDay
-          ? "🌤️ It's a pleasant day, enjoy it!"
-          : "🌙 A pleasant night, take it easy!";
-      } else if (temp <= 20) {
+          ? "😌 It’s that kinda day where everything feels just right."
+          : "🌙 Chill night ahead—kick back and relax.";
+      } else if (temp <= 25) {
         baseMessage = isDay
           ? "🥶 It's giving fridge energy. Bundle up, penguin!"
           : "😴 It's a chilly night. Snuggle up under a warm blanket!";
