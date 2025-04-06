@@ -5,7 +5,7 @@ import Text from '../atoms/Text';
 import iconMapping from '../../utils/weatherIcon';
 
 const WeatherInfo = ({ iconName, temperature, location, description, date = new Date() }) => {
-  const formattedDate = date.toLocaleDateString('en-EN', { //bahasa tgl n
+  const formattedDate = date.toLocaleDateString('en-US', { //bahasa tgl n
     weekday: 'long',
     day: 'numeric',
     month: 'long',
