@@ -43,16 +43,16 @@ export const fetchWeather = async (latitude, longitude) => {
       current.icon = current.icon.replace('d', 'n');
     }
 
-    const forecast = time.slice(1,8).map((date, i) => {
-      const code = dailyCodes[i + 1];
+    const forecast = time.slice(1).map((date, i) => {
+      const code = dailyCodes[i];
       const mapping = weatherMapping[code] || { description: 'Unknown', icon: '01d' };
       return {
         date,
-        temp: Math.round(temperature_2m_max[i + 1]),
+        temp: Math.round(temperature_2m_max[i]),
         description: mapping.description,
         icon: mapping.icon,
-        uvIndex: uv_index_max[i + 1],
-        windspeed: windspeed_10m_max?.[i + 1] ?? null,
+        uvIndex: uv_index_max[i],
+        windspeed: windspeed_10m_max?.[i] ?? null,
       };
     });
     
