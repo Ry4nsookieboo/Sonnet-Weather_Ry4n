@@ -1,4 +1,3 @@
-// src/components/organisms/GetStartedHero.js
 import React, { useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import CustomText from '../atoms/CustomText';
@@ -15,12 +14,13 @@ export default function GetStartedHero() {
     setIsDayManual((prev) => !prev);
   };
 
+  // Contoh icon yang dipakai untuk toggle
   const iconKey = isDayManual ? '02d' : '02n';
   const dynamicIcon = iconMapping[iconKey];
 
   return (
     <View style={styles.container}>
-      {/* Icon cuaca bisa di-tap buat ganti day/night */}
+      {/* Icon cuaca yang bisa di-tap buat ganti day/night */}
       <TouchableOpacity onPress={toggleDayNight}>
         <Image
           source={dynamicIcon}
@@ -35,8 +35,24 @@ export default function GetStartedHero() {
         resizeMode="contain"
       />
 
-      <CustomText style={styles.title}>Sonnet Weather</CustomText>
-      <CustomText style={styles.subtitle}>Your personalized weather forecast</CustomText>
+      {/* Container untuk title dengan icon 01d dan 01n */}
+      <View style={styles.titleContainer}>
+        <Image
+          source={iconMapping['01n']}
+          style={styles.iconInline}
+          resizeMode="contain"
+        />
+        <CustomText style={styles.title}>Sonnet Weather</CustomText>
+        <Image
+          source={iconMapping['01d']}
+          style={styles.iconInline}
+          resizeMode="contain"
+        />
+      </View>
+
+      <CustomText style={styles.subtitle}>
+        Your personalized weather forecast
+      </CustomText>
     </View>
   );
 }
@@ -53,10 +69,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   house: {
-    marginBottom: 0, //siapa tau kepikiran desain baru biar gk repot wkwk
+    marginBottom: 0, // mungkin lo bisa sesuaikan lagi desainnya
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  iconInline: {
+    width: 30,
+    height: 30,
+    marginHorizontal: 8,
   },
   title: {
-    marginTop: 10,
     fontSize: 32,
     fontWeight: 'bold',
     color: '#fff',

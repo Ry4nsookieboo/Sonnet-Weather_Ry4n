@@ -23,20 +23,36 @@ export default function ResetDiaryButton({ onClear }) {
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalOverlay}>
-          <View style={styles.modalBox}>
-            <Text style={styles.modalTitle}>Reset Diary</Text>
-            <Text style={styles.modalText}>Are you sure you want to start a new diary entry?</Text>
+  <View style={styles.modalBox}>
+    <Text style={styles.modalTitle}>Reset Diary</Text>
+    <Text style={styles.modalText}>Are you sure you want to start a new diary entry?</Text>
+    <View style={{ flexDirection: 'row', gap: 10 }}>
 
-            <View style={{ flexDirection: 'row', gap: 10 }}>
-              <Pressable style={[styles.modalButton, { backgroundColor: '#ccc' }]} onPress={() => setModalVisible(false)}>
-                <Text style={{ color: '#333' }}>Cancel</Text>
-              </Pressable>
-              <Pressable style={styles.modalButton} onPress={handleConfirm}>
-                <Text style={{ color: '#fff' }}>Yes</Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
+      <Pressable
+        style={({ pressed }) => [
+          styles.modalButton,
+          { backgroundColor: '#ccc' },
+          pressed && styles.buttonPressed,
+        ]}
+        onPress={() => setModalVisible(false)}
+      >
+        <Text style={{ color: '#333' }}>Cancel</Text>
+      </Pressable>
+
+      <Pressable
+        style={({ pressed }) => [
+          styles.modalButton,
+          pressed && styles.buttonPressed,
+        ]}
+        onPress={handleConfirm}
+      >
+        <Text style={{ color: '#fff' }}>Yes</Text>
+      </Pressable>
+
+    </View>
+  </View>
+</View>
+
       </Modal>
     </>
   );
@@ -83,4 +99,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     borderRadius: 8,
   },
+  buttonPressed: {
+    opacity: 0.7,
+  },
+  
 });

@@ -50,9 +50,9 @@ const DiaryScreen = () => {
 
   const handleExport = () => {
     if (text.trim().length > 0) {
-      console.log('Export diary :', text);
+      console.log('Export diary:', text);
     } else {
-      console.log('Export diary : Note is empty.');
+      console.log('Export diary: Note is empty.');
     }
     setModalVisible(true);
   };
@@ -83,7 +83,13 @@ const DiaryScreen = () => {
           <View style={styles.modalBox}>
             <Text style={styles.modalTitle}>Success!</Text>
             <Text style={styles.modalText}>Your diary has been exported!</Text>
-            <Pressable style={styles.okButton} onPress={() => setModalVisible(false)}>
+            <Pressable
+              style={({ pressed }) => [
+                styles.okButton,
+                pressed && styles.buttonPressed,
+              ]}
+              onPress={() => setModalVisible(false)}
+            >
               <Text style={styles.okText}>OK</Text>
             </Pressable>
           </View>
@@ -189,6 +195,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 30,
     borderRadius: 8,
+  },
+  buttonPressed: {
+    opacity: 0.7,
+    transform: [{ scale: 0.95 }],
   },
   okText: {
     color: '#fff',
