@@ -55,11 +55,12 @@
     # atau jika pakai yarn:
     yarn install
  
- 4. **Jalankan server lokal**
+ 3. **Jalankan server lokal**
     ```bash
     expo start
  
- 3. **Scan barcode di Expo Go**
+ 4. **Scan barcode di Expo Go**
+    ```bash
     Install dan buka aplikasi Expo Go di device kamu dan scan QR code yang muncul di terminal atau browser.
  
  
